@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { DAYS_LIST } from "../../constants/agenda";
 import { ParametersContextType } from "../../contexts/parameters/parameters-context";
-import { TimeFrame } from "../../types/agenda";
 
 const GridLayout = styled.div<{
-  timeFrame: TimeFrame;
   parametersCtx: ParametersContextType;
 }>`
   min-height: 100%;
@@ -20,8 +18,8 @@ const GridLayout = styled.div<{
       1fr
     );
   grid-template-rows: 64px repeat(
-      ${({ timeFrame, parametersCtx }) =>
-        timeFrame === 15
+      ${({ parametersCtx }) =>
+        parametersCtx.timeFrame === 15
           ? parametersCtx.openingHours.length("hours") * 4
           : parametersCtx.openingHours.length("hours") * 2},
       1fr

@@ -12,7 +12,8 @@ export default function ParametersProvider({
       DateTime.now().set({ hour: 9, minute: 0, second: 0, millisecond: 0 }),
       DateTime.now().set({ hour: 19, minute: 0, second: 0, millisecond: 0 })
     ),
-    daysOff: ["dimanche" ],
+    daysOff: ["dimanche", "lundi"],
+    timeFrame: 30,
   };
 
   return (

@@ -11,7 +11,7 @@ const GridCell = styled.div`
 export default function GridBookingCards() {
   const parametersCtx = useContext(ParametersContext);
   return (
-    <GridLayout timeFrame={30} parametersCtx={parametersCtx}>
+    <GridLayout parametersCtx={parametersCtx}>
       <GridCell />
     </GridLayout>
   );

@@ -4,20 +4,31 @@ import styled from "styled-components";
 import ParametersContext from "../../contexts/parameters/parameters-context";
 import { SmallSubHeader } from "../theme/text";
 
-const Hour = styled.div<{ index: number; total: number }>`
+const Hour = styled.div<{ index: number; total: number; timeFrame: 15 | 30 }>`
   justify-self: center;
   align-self: center;
 
-  ${({ index, total }) => {
+  ${({ index, total, timeFrame }) => {
     let css = "";
-    for (let i = 1; i <= total; i++) {
-      css += `
+    if (timeFrame === 15) {
+      for (let i = 1; i <= total; i++) {
+        css += `
+        &:nth-child(${i}) {
+          grid-area: ${index + i * 3} / 1 / ${index + i * 3 + 2} / 2;
+        }
+      `;
+      }
+      return css;
+    } else {
+      for (let i = 1; i <= total; i++) {
+        css += `
         &:nth-child(${i}) {
           grid-area: ${index + i + 1} / 1 / ${index + i + 3} / 2;
         }
       `;
+      }
+      return css;
     }
-    return css;
   }}
 `;
 
@@ -32,7 +43,12 @@ export default function HoursLabels() {
   }
 
   const hours = hoursToDisplay.map((hour, index, array) => (
-    <Hour key={index} index={index} total={array.length}>
+    <Hour
+      key={index}
+      index={index}
+      total={array.length}
+      timeFrame={parametersCtx.timeFrame}
+    >
       <SmallSubHeader>{hour.hour}</SmallSubHeader>
     </Hour>
   ));
