@@ -1,0 +1,1 @@
+export type TimeFrame = 15 | 30;

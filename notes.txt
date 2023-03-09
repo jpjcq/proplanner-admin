@@ -1,0 +1,2 @@
+- Future addition, add 30 min precision to shop opening hours, actually only hours.
+  Will need to modify GridLayout rows number and Background's css for lines.
