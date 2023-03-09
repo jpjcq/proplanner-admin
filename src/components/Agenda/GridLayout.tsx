@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { DAYS_LIST } from "../../constants/agenda";
 import { ParametersContextType } from "../../contexts/parameters/parameters-context";
 
+type GridLayoutTimeFrame = ParametersContextType["timeFrame"] | 5;
+
 const GridLayout = styled.div<{
   parametersCtx: ParametersContextType;
+  customTimeFrame?: GridLayoutTimeFrame;
 }>`
   min-height: 100%;
   width: 100%;
@@ -18,10 +21,19 @@ const GridLayout = styled.div<{
       1fr
     );
   grid-template-rows: 64px repeat(
-      ${({ parametersCtx }) =>
-        parametersCtx.timeFrame === 15
-          ? parametersCtx.openingHours.length("hours") * 4
-          : parametersCtx.openingHours.length("hours") * 2},
+      ${({ parametersCtx, customTimeFrame }) => {
+        switch (customTimeFrame ? customTimeFrame : parametersCtx.timeFrame) {
+          case 5:
+            return parametersCtx.openingHours.length("hours") * 12;
+            break;
+          case 15:
+            return parametersCtx.openingHours.length("hours") * 4;
+            break;
+          case 30:
+            return parametersCtx.openingHours.length("hours") * 2;
+            break;
+        }
+      }},
       1fr
     );
 `;

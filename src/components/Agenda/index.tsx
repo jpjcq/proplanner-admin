@@ -16,7 +16,7 @@ const RelativeWrapper = styled.div`
 export default function Agenda() {
   return (
     <RelativeWrapper>
-      <Background timeFrame={30} />
+      <Background />
       {/* <BookingCards /> */}
     </RelativeWrapper>
   );
