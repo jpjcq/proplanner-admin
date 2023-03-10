@@ -1,5 +1,5 @@
 import { useTheme } from "styled-components";
-import { Theme } from "../theme/colors";
+import { Theme } from "../../theme/colors";
 
 export default function Clock() {
   const theme = useTheme() as Theme;
