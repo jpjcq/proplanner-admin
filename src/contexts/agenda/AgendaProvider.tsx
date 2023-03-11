@@ -1,21 +1,21 @@
 import { ReactNode, Reducer, useReducer } from "react";
-import AgendaContext, { TimeFrame } from "./agenda-context";
+import AgendaContext, { TimeInterval } from "./agenda-context";
 
 interface StateType {
-  timeFrame: TimeFrame;
+  timeInterval: TimeInterval;
 }
 
-const initialState: StateType = { timeFrame: 30 };
+const initialState: StateType = { timeInterval: 30 };
 
 interface ActionType {
   type: string;
 }
 const agendaReducer: Reducer<StateType, ActionType> = (state, action) => {
   switch (action.type) {
-    case "TOOGLE_TIMEFRAME":
-      const newTimeFrame = state.timeFrame === 30 ? 15 : 30;
+    case "TOOGLE_TIMEINTERVAL":
+      const newTimeInterval = state.timeInterval === 30 ? 15 : 30;
       return {
-        timeFrame: newTimeFrame,
+        timeInterval: newTimeInterval,
       };
     default:
       return state;
@@ -28,9 +28,9 @@ export default function AgendaProvider({ children }: { children: ReactNode }) {
     initialState
   );
   const agendaContext = {
-    timeFrame: agendaState.timeFrame,
-    toogleTimeFrame() {
-      dispatchAgendaState({ type: "TOOGLE_TIMEFRAME" });
+    timeInterval: agendaState.timeInterval,
+    toogleTimeInterval() {
+      dispatchAgendaState({ type: "TOOGLE_TIMEINTERVAL" });
     },
   };
   return (

@@ -1,10 +1,15 @@
 import { createContext } from "react";
 
-export type TimeFrame = 15 | 30;
+export type TimeInterval = 15 | 30;
 
-const context: { timeFrame: TimeFrame; toogleTimeFrame: () => void } = {
-  timeFrame: 30,
-  toogleTimeFrame() {},
+export interface AgendaContextType {
+  timeInterval: TimeInterval;
+  toogleTimeInterval: () => void;
+}
+
+const context: AgendaContextType = {
+  timeInterval: 30,
+  toogleTimeInterval() {},
 };
 
 const AgendaContext = createContext(context);

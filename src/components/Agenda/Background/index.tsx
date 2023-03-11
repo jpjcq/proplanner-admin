@@ -1,18 +1,18 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { DAYS_LIST } from "../../../constants/agenda";
-import ParametersContext, {
-  ParametersContextType,
-} from "../../../contexts/parameters/parameters-context";
+import ParametersContext from "../../../contexts/parameters/parameters-context";
 import Clock from "../../Icons/Clock";
 import DaysLabels from "./DaysLabels";
 import GridLayout from "../GridLayout";
 import HoursLabels from "./HoursLabel";
-import AgendaContext from "../../../contexts/agenda/agenda-context";
+import AgendaContext, {
+  TimeInterval,
+} from "../../../contexts/agenda/agenda-context";
 
-const Line = styled.div<{ parametersCtx: ParametersContextType }>`
-  ${({ parametersCtx, theme }) =>
-    parametersCtx.timeFrame === 15
+const Line = styled.div<{ timeInterval: TimeInterval }>`
+  ${({ timeInterval, theme }) =>
+    timeInterval === 15
       ? `border-bottom: 1px solid ${theme.colors.borderLight};
   grid-column: 2 / span last;
 
@@ -49,7 +49,7 @@ export default function Background() {
   const agendaCtx = useContext(AgendaContext);
   const columnsNumber = DAYS_LIST.length - parametersCtx.daysOff.length + 1;
   const linesNumber =
-    parametersCtx.timeFrame === 15
+    agendaCtx.timeInterval === 15
       ? parametersCtx.openingHours.length("hours") * 4 + 1
       : parametersCtx.openingHours.length("hours") * 2 + 1;
   const linesArray = Array.from({ length: linesNumber }, (_, index) =>
@@ -57,10 +57,10 @@ export default function Background() {
       <Line
         key={index}
         style={{ border: "none" }}
-        parametersCtx={parametersCtx}
+        timeInterval={agendaCtx.timeInterval}
       />
     ) : (
-      <Line key={index} parametersCtx={parametersCtx} />
+      <Line key={index} timeInterval={agendaCtx.timeInterval} />
     )
   );
   const columnsArray = Array.from({ length: columnsNumber }, (_, index) =>
@@ -73,17 +73,21 @@ export default function Background() {
 
   return (
     <>
-      <GridLayout parametersCtx={parametersCtx}>{linesArray}</GridLayout>
-      <GridLayout parametersCtx={parametersCtx}>{columnsArray}</GridLayout>
-      <GridLayout parametersCtx={parametersCtx}>
+      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
+        {linesArray}
+      </GridLayout>
+      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
+        {columnsArray}
+      </GridLayout>
+      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
         <ClockWrapper>
           <Clock />
         </ClockWrapper>
       </GridLayout>
-      <GridLayout parametersCtx={parametersCtx}>
+      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
         <DaysLabels />
       </GridLayout>
-      <GridLayout parametersCtx={parametersCtx}>
+      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
         <HoursLabels />
       </GridLayout>
     </>

@@ -1,16 +1,23 @@
 import { DateTime } from "luxon";
 import { useContext } from "react";
 import styled from "styled-components";
+import AgendaContext, {
+  TimeInterval,
+} from "../../../contexts/agenda/agenda-context";
 import ParametersContext from "../../../contexts/parameters/parameters-context";
 import { SmallSubHeader } from "../../../theme/text";
 
-const Hour = styled.div<{ index: number; total: number; timeFrame: 15 | 30 }>`
+const Hour = styled.div<{
+  index: number;
+  total: number;
+  timeInterval: TimeInterval;
+}>`
   justify-self: center;
   align-self: center;
 
-  ${({ index, total, timeFrame }) => {
+  ${({ index, total, timeInterval }) => {
     let css = "";
-    if (timeFrame === 15) {
+    if (timeInterval === 15) {
       for (let i = 1; i <= total; i++) {
         css += `
         &:nth-child(${i}) {
@@ -34,6 +41,7 @@ const Hour = styled.div<{ index: number; total: number; timeFrame: 15 | 30 }>`
 
 export default function HoursLabels() {
   const parametersCtx = useContext(ParametersContext);
+  const agendaCtx = useContext(AgendaContext);
 
   const hoursToDisplay: DateTime[] = [];
   let hourToPush = parametersCtx.openingHours.start;
@@ -47,7 +55,7 @@ export default function HoursLabels() {
       key={index}
       index={index}
       total={array.length}
-      timeFrame={parametersCtx.timeFrame}
+      timeInterval={agendaCtx.timeInterval}
     >
       <SmallSubHeader>{hour.hour}</SmallSubHeader>
     </Hour>

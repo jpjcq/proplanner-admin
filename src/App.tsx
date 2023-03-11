@@ -21,7 +21,7 @@ export default function App() {
         Date Picker
       </Button>
       <Button
-        onClick={() => agendaCtx.toogleTimeFrame()}
+        onClick={() => agendaCtx.toogleTimeInterval()}
         style={{ backgroundColor: "black", marginLeft: "50px" }}
       >
         Toogle TimeFrame
