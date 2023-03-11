@@ -10,7 +10,6 @@ interface DatePickerProps {
 
 export default function DatePicker({ isOpen, onDismiss }: DatePickerProps) {
   const [value, setValue] = useState<DateTime | null>(DateTime.now());
-  console.log(value);
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <WeeksDateCalendar value={value} setValue={setValue} />

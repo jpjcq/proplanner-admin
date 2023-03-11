@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import styled from "styled-components";
+import { DateTime, Interval } from "luxon";
 import ParametersContext from "../../contexts/parameters/parameters-context";
 import GridLayout from "./GridLayout";
 //To fetch from db
 import dummyBookings from "../../data/dummyBookings";
-import { DateTime, Interval } from "luxon";
 
-const actualWeek = Interval.fromDateTimes(DateTime.now(), )
+// const actualWeek = Interval.fromDateTimes(DateTime.now(), )
 
 const GridCell = styled.div`
   border: 1px solid red;

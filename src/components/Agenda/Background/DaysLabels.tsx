@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { DAYS_LIST } from "../../constants/agenda";
-import ParametersContext from "../../contexts/parameters/parameters-context";
-import { BREAKPOINTS } from "../../theme";
-import { SmallSubHeader } from "../../theme/text";
+import { DAYS_LIST } from "../../../constants/agenda";
+import ParametersContext from "../../../contexts/parameters/parameters-context";
+import { BREAKPOINTS } from "../../../theme";
+import { SmallSubHeader } from "../../../theme/text";
 
 const Day = styled.div<{ index: number }>`
   grid-area: 1 / ${({ index }) => index + 2} / 2 / ${({ index }) => index + 3};

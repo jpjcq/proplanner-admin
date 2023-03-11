@@ -1,8 +1,8 @@
 import { DateTime } from "luxon";
 import { useContext } from "react";
 import styled from "styled-components";
-import ParametersContext from "../../contexts/parameters/parameters-context";
-import { SmallSubHeader } from "../../theme/text";
+import ParametersContext from "../../../contexts/parameters/parameters-context";
+import { SmallSubHeader } from "../../../theme/text";
 
 const Hour = styled.div<{ index: number; total: number; timeFrame: 15 | 30 }>`
   justify-self: center;

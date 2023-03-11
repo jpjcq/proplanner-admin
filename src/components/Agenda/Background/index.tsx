@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { DAYS_LIST } from "../../constants/agenda";
+import { DAYS_LIST } from "../../../constants/agenda";
 import ParametersContext, {
   ParametersContextType,
-} from "../../contexts/parameters/parameters-context";
-import Clock from "../Icons/Clock";
+} from "../../../contexts/parameters/parameters-context";
+import Clock from "../../Icons/Clock";
 import DaysLabels from "./DaysLabels";
-import GridLayout from "./GridLayout";
+import GridLayout from "../GridLayout";
 import HoursLabels from "./HoursLabel";
+import AgendaContext from "../../../contexts/agenda/agenda-context";
 
 const Line = styled.div<{ parametersCtx: ParametersContextType }>`
   ${({ parametersCtx, theme }) =>
@@ -43,8 +44,9 @@ const ClockWrapper = styled.div`
   align-self: center;
 `;
 
-export default function GridBackground() {
+export default function Background() {
   const parametersCtx = useContext(ParametersContext);
+  const agendaCtx = useContext(AgendaContext);
   const columnsNumber = DAYS_LIST.length - parametersCtx.daysOff.length + 1;
   const linesNumber =
     parametersCtx.timeFrame === 15
