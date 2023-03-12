@@ -1,40 +1,41 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickersDay, PickersDayProps } from "@mui/x-date-pickers/PickersDay";
 import { DateTime } from "luxon";
 import { useTheme } from "styled-components";
 import { Theme } from "../../theme/colors";
+import AgendaContext from "../../contexts/agenda/agenda-context";
 
 interface CustomPickerDayProps extends PickersDayProps<DateTime> {
   dayIsBetween: boolean;
   isFirstDay: boolean;
   isLastDay: boolean;
-  styledTheme: Theme;
+  styledtheme: Theme;
 }
 
 const CustomPickersDay = styled(PickersDay, {
   shouldForwardProp: prop =>
     prop !== "dayIsBetween" && prop !== "isFirstDay" && prop !== "isLastDay",
 })<CustomPickerDayProps>(
-  ({ theme, dayIsBetween, isFirstDay, isLastDay, styledTheme }) => ({
+  ({ theme, dayIsBetween, isFirstDay, isLastDay, styledtheme }) => ({
     ...(dayIsBetween && {
       borderRadius: 0,
-      backgroundColor: styledTheme.colors.validation.blue,
+      backgroundColor: styledtheme.colors.validation.blue,
       color: theme.palette.common.white,
       "&:hover, &:focus": {
-        backgroundColor: styledTheme.colors.validation.blue,
+        backgroundColor: styledtheme.colors.validation.blue,
       },
     }),
     ...(isFirstDay && {
-      backgroundColor: styledTheme.colors.validation.blue,
+      backgroundColor: styledtheme.colors.validation.blue,
       color: theme.palette.common.white,
       borderTopLeftRadius: "50%",
       borderBottomLeftRadius: "50%",
       borderTopRightRadius: "0",
       borderBottomRightRadius: "0",
       "&:hover, &:focus": {
-        backgroundColor: styledTheme.colors.validation.blue,
+        backgroundColor: styledtheme.colors.validation.blue,
       },
     }),
     ...(isLastDay && {
@@ -44,7 +45,7 @@ const CustomPickersDay = styled(PickersDay, {
     ...(!isFirstDay &&
       !isLastDay &&
       !dayIsBetween && {
-        color: styledTheme.colors.policeMedium,
+        color: styledtheme.colors.policeMedium,
       }),
   })
 ) as React.ComponentType<CustomPickerDayProps>;
@@ -73,29 +74,22 @@ function Day(
       dayIsBetween={dayIsBetween}
       isFirstDay={isFirstDay}
       isLastDay={isLastDay}
-      styledTheme={styledTheme}
+      styledtheme={styledTheme}
       style={{ fontWeight: 600 }}
     />
   );
 }
 
-interface WeeksDateCalendarProps {
-  value: DateTime | null;
-  setValue: (value: React.SetStateAction<DateTime | null>) => void;
-}
-
-export default function WeeksDateCalendar({
-  value,
-  setValue,
-}: WeeksDateCalendarProps) {
+export default function WeeksDateCalendar() {
+  const agendaCtx = useContext(AgendaContext);
   return (
     <DateCalendar
-      value={value}
-      onChange={newValue => setValue(newValue)}
+      value={agendaCtx.selectedDay}
+      onChange={newValue => agendaCtx.setSelectedDay(newValue as DateTime)}
       slots={{ day: Day }}
       slotProps={{
         day: {
-          selectedDay: value,
+          selectedDay: agendaCtx.selectedDay,
         } as any,
       }}
     />

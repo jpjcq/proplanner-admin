@@ -1,22 +1,27 @@
 const commonTheme = {
-  white: "#FFFFFF",
-  black: "#000000",
-  cardGreen: "#63C951",
-  cardBlue: "#61BCF9",
-  cardOrange: "#ED7043",
-  cardBrown: "#C0783B",
-  cardPurple: "#7E38F6",
-  cardYellow: "#F7CD55",
-  validation: {
-    blue: "#3E60F6",
+  colors: {
+    white: "#FFFFFF",
+    black: "#000000",
+    cardColors: {
+      cardGreen: "#63C951",
+      cardBlue: "#61BCF9",
+      cardOrange: "#ED7043",
+      cardBrown: "#C0783B",
+      cardPurple: "#7E38F6",
+      cardYellow: "#F7CD55",
+    },
+    validation: {
+      blue: "#3E60F6",
+    },
   },
   boxShadow:
     "0px 2px 4px -2px rgba(24, 39, 75, 0.12), 0px 4px 4px -2px rgba(24, 39, 75, 0.08)",
 };
 
 export const lightTheme = {
+  ...commonTheme,
   colors: {
-    ...commonTheme,
+    ...commonTheme.colors,
     background: "#F7F8FA",
     borderLight: "#EDEFF2",
     borderMedium: "#E4E6EA",
@@ -30,3 +35,5 @@ export const lightTheme = {
 };
 
 export type Theme = typeof lightTheme;
+
+export type CardColor = keyof Theme["colors"]["cardColors"];

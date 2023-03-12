@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Background from "./Background";
-import BookingCards from "./BookingCards";
+import Bookings from "./Bookings";
 
 const RelativeWrapper = styled.div`
   height: 730px;
@@ -17,7 +17,7 @@ export default function Agenda() {
   return (
     <RelativeWrapper>
       <Background />
-      {/* <BookingCards /> */}
+      <Bookings />
     </RelativeWrapper>
   );
 }

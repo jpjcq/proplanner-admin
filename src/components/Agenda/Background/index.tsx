@@ -2,13 +2,13 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { DAYS_LIST } from "../../../constants/agenda";
 import ParametersContext from "../../../contexts/parameters/parameters-context";
-import Clock from "../../Icons/Clock";
 import DaysLabels from "./DaysLabels";
 import GridLayout from "../GridLayout";
 import HoursLabels from "./HoursLabel";
 import AgendaContext, {
   TimeInterval,
 } from "../../../contexts/agenda/agenda-context";
+import SelectedWeekLabel from "./SelectedWeekLabel";
 
 const Line = styled.div<{ timeInterval: TimeInterval }>`
   ${({ timeInterval, theme }) =>
@@ -38,10 +38,13 @@ const Column = styled.div`
   grid-row: 1 / span last;
 `;
 
-const ClockWrapper = styled.div`
+const SelectedWeekWrapper = styled.div`
   grid-area: 1 / 1 / 2 / 2;
   justify-self: center;
   align-self: center;
+  color: ${({ theme }) => theme.colors.policeMedium};
+  font-size: 10px;
+  font-weight: 700;
 `;
 
 export default function Background() {
@@ -73,21 +76,17 @@ export default function Background() {
 
   return (
     <>
-      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
-        {linesArray}
+      <GridLayout>{linesArray}</GridLayout>
+      <GridLayout>{columnsArray}</GridLayout>
+      <GridLayout>
+        <SelectedWeekWrapper>
+          <SelectedWeekLabel />
+        </SelectedWeekWrapper>
       </GridLayout>
-      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
-        {columnsArray}
-      </GridLayout>
-      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
-        <ClockWrapper>
-          <Clock />
-        </ClockWrapper>
-      </GridLayout>
-      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
+      <GridLayout>
         <DaysLabels />
       </GridLayout>
-      <GridLayout parametersCtx={parametersCtx} agendaCtx={agendaCtx}>
+      <GridLayout>
         <HoursLabels />
       </GridLayout>
     </>

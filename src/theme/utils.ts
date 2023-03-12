@@ -1,3 +1,6 @@
+/**
+ * @param {number} amount - Value in percents, between 0 and 100.
+*/
 export function opacify(amount: number, hexColor: string): string {
   if (!hexColor.startsWith('#')) {
     return hexColor

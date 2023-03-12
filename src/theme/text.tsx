@@ -7,6 +7,28 @@ const TextWrapper = styled(Text).withConfig({
   color: ${({ color, theme }) => theme.colors[color]};
 `;
 
+export function SmallCaption(props: TextProps) {
+  return (
+    <TextWrapper
+      fontWeight={700}
+      fontSize={10}
+      color={"policeMedium"}
+      {...props}
+    />
+  );
+}
+
+export function BigCaption(props: TextProps) {
+  return (
+    <TextWrapper
+      fontWeight={700}
+      fontSize={12}
+      color={"policeMedium"}
+      {...props}
+    />
+  );
+}
+
 export function SmallSubHeader(props: TextProps) {
   return (
     <TextWrapper

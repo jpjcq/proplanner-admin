@@ -1,14 +1,19 @@
+import { ReactNode, useContext } from "react";
 import styled from "styled-components";
 import { DAYS_LIST } from "../../constants/agenda";
-import { AgendaContextType } from "../../contexts/agenda/agenda-context";
-import { ParametersContextType } from "../../contexts/parameters/parameters-context";
+import AgendaContext, {
+  AgendaContextType,
+} from "../../contexts/agenda/agenda-context";
+import ParametersContext, {
+  ParametersContextType,
+} from "../../contexts/parameters/parameters-context";
 
-type GridLayoutTimeFrame = AgendaContextType["timeInterval"] | 5;
+type GridLayoutTimeInterval = AgendaContextType["timeInterval"] | 5;
 
-const GridLayout = styled.div<{
+const Grid = styled.div<{
   agendaCtx: AgendaContextType;
   parametersCtx: ParametersContextType;
-  customTimeFrame?: GridLayoutTimeFrame;
+  bookingLayoutTimeInterval?: GridLayoutTimeInterval;
 }>`
   min-height: 100%;
   width: 100%;
@@ -23,18 +28,40 @@ const GridLayout = styled.div<{
       1fr
     );
   grid-template-rows: 64px repeat(
-      ${({ agendaCtx, parametersCtx, customTimeFrame }) => {
-        switch (customTimeFrame ? customTimeFrame : agendaCtx.timeInterval) {
-          case 5:
-            return parametersCtx.openingHours.length("hours") * 12;
-          case 15:
-            return parametersCtx.openingHours.length("hours") * 4;
-          case 30:
-            return parametersCtx.openingHours.length("hours") * 2;
+      ${({ agendaCtx, parametersCtx, bookingLayoutTimeInterval }) => {
+        if (bookingLayoutTimeInterval) {
+          return parametersCtx.openingHours.length("hours") * 12;
+        } else {
+          switch (agendaCtx.timeInterval) {
+            case 15:
+              return parametersCtx.openingHours.length("hours") * 4;
+            case 30:
+              return parametersCtx.openingHours.length("hours") * 2;
+          }
         }
       }},
       1fr
     );
 `;
 
-export default GridLayout;
+interface GridLayoutProps {
+  children: ReactNode;
+  bookingLayoutTimeInterval?: GridLayoutTimeInterval;
+}
+
+export default function GridLayout({
+  children,
+  bookingLayoutTimeInterval,
+}: GridLayoutProps) {
+  const agendaCtx = useContext(AgendaContext);
+  const parametersCtx = useContext(ParametersContext);
+  return (
+    <Grid
+      agendaCtx={agendaCtx}
+      parametersCtx={parametersCtx}
+      bookingLayoutTimeInterval={bookingLayoutTimeInterval}
+    >
+      {children}
+    </Grid>
+  );
+}
