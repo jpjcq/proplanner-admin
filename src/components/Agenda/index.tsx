@@ -3,7 +3,7 @@ import Background from "./Background";
 import Bookings from "./Bookings";
 
 const RelativeWrapper = styled.div`
-  flex: 19;
+  height: 100%;
   position: relative;
   margin: 0 14px 14px 14px;
   background-color: ${({ theme }) => theme.colors.white};
