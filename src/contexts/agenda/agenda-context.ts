@@ -5,9 +5,11 @@ export type TimeInterval = 15 | 30;
 
 export interface AgendaContextType {
   selectedDay: DateTime;
-  setSelectedDay: (day: DateTime) => void,
+  setSelectedDay: (day: DateTime) => void;
   timeInterval: TimeInterval;
   toogleTimeInterval: () => void;
+  xInterval: "day" | "week";
+  setXInterval: (interval: "day" | "week") => void;
 }
 
 const context: AgendaContextType = {
@@ -15,6 +17,8 @@ const context: AgendaContextType = {
   setSelectedDay() {},
   timeInterval: 30,
   toogleTimeInterval() {},
+  xInterval: "week",
+  setXInterval() {},
 };
 
 const AgendaContext = createContext(context);

@@ -24,7 +24,10 @@ const Grid = styled.div<{
   right: 0;
   display: grid;
   grid-template-columns: 67px repeat(
-      ${({ parametersCtx }) => DAYS_LIST.length - parametersCtx.daysOff.length},
+      ${({ agendaCtx, parametersCtx }) =>
+        agendaCtx.xInterval === "week"
+          ? DAYS_LIST.length - parametersCtx.daysOff.length
+          : 1},
       1fr
     );
   grid-template-rows: 64px repeat(

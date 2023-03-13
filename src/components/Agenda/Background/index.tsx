@@ -50,7 +50,10 @@ const SelectedWeekWrapper = styled.div`
 export default function Background() {
   const parametersCtx = useContext(ParametersContext);
   const agendaCtx = useContext(AgendaContext);
-  const columnsNumber = DAYS_LIST.length - parametersCtx.daysOff.length + 1;
+  const columnsNumber =
+    agendaCtx.xInterval === "week"
+      ? DAYS_LIST.length - parametersCtx.daysOff.length + 1
+      : 2;
   const linesNumber =
     agendaCtx.timeInterval === 15
       ? parametersCtx.openingHours.length("hours") * 4 + 1
@@ -68,7 +71,7 @@ export default function Background() {
   );
   const columnsArray = Array.from({ length: columnsNumber }, (_, index) =>
     index === columnsNumber - 1 ? (
-      <Column key={index} style={{ border: "none" }} />
+      <Column key={index} style={{ border: "none", gridColumn: `2 / -1` }} />
     ) : (
       <Column key={index} />
     )

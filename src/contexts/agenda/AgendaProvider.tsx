@@ -1,20 +1,25 @@
 import { DateTime } from "luxon";
 import { ReactNode, Reducer, useReducer } from "react";
-import AgendaContext, { TimeInterval } from "./agenda-context";
+import AgendaContext, {
+  AgendaContextType,
+  TimeInterval,
+} from "./agenda-context";
 
 interface StateType {
   timeInterval: TimeInterval;
   selectedDay: DateTime;
+  xInterval: AgendaContextType["xInterval"];
 }
 
 const initialState: StateType = {
   timeInterval: 30,
   selectedDay: DateTime.now(),
+  xInterval: "week",
 };
 
 interface ActionType {
   type: string;
-  payload?: DateTime;
+  payload?: DateTime | AgendaContextType["xInterval"];
 }
 const agendaReducer: Reducer<StateType, ActionType> = (state, action) => {
   switch (action.type) {
@@ -28,6 +33,11 @@ const agendaReducer: Reducer<StateType, ActionType> = (state, action) => {
       return {
         ...state,
         selectedDay: action.payload as DateTime,
+      };
+    case "TOGGLE_X_INTERVAL":
+      return {
+        ...state,
+        xInterval: action.payload as AgendaContextType["xInterval"],
       };
     default:
       return state;
@@ -47,6 +57,10 @@ export default function AgendaProvider({ children }: { children: ReactNode }) {
     timeInterval: agendaState.timeInterval,
     toogleTimeInterval() {
       dispatchAgendaState({ type: "TOOGLE_TIMEINTERVAL" });
+    },
+    xInterval: agendaState.xInterval,
+    setXInterval(interval: AgendaContextType["xInterval"]) {
+      dispatchAgendaState({ type: "TOGGLE_X_INTERVAL", payload: interval });
     },
   };
   return (

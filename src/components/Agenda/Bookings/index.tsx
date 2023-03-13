@@ -8,22 +8,29 @@ import { Booking } from "../../../types/booking";
 import useActiveWeek from "../../../hooks/useActiveWeek";
 //To fetch from db
 import dummyBookings from "../../../data/dummyBookings";
+import { Interval } from "luxon";
 
 export default function Bookings() {
   const agendaCtx = useContext(AgendaContext);
   const parametersCtx = useContext(ParametersContext);
-  const selectedWeek = useActiveWeek(agendaCtx.selectedDay);
-  const thisWeekBookings: Booking[] = [];
-  dummyBookings.forEach(
-    booking =>
-      selectedWeek.contains(booking.serviceTime.start) &&
-      thisWeekBookings.push(booking)
+  const selectedDayInterval = Interval.fromDateTimes(
+    agendaCtx.selectedDay.startOf("day"),
+    agendaCtx.selectedDay.endOf("day")
   );
-  const bookingsToDisplay = thisWeekBookings.map((booking, index) => (
+  const selectedWeek = useActiveWeek(agendaCtx.selectedDay);
+  const thisIntervalBookings: Booking[] = [];
+  dummyBookings.forEach(booking =>
+    agendaCtx.xInterval === "week"
+      ? selectedWeek.contains(booking.serviceTime.start) &&
+        thisIntervalBookings.push(booking)
+      : selectedDayInterval.contains(booking.serviceTime.start) &&
+        thisIntervalBookings.push(booking)
+  );
+  const bookingsToDisplay = thisIntervalBookings.map((booking, index) => (
     <BookingCard
       key={index}
       color="cardBlue"
-      coordinates={getCardCoodinates(booking, parametersCtx)}
+      coordinates={getCardCoodinates(booking, parametersCtx, agendaCtx)}
     />
   ));
 

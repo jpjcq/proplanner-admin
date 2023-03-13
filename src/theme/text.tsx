@@ -23,7 +23,6 @@ export function BigCaption(props: TextProps) {
     <TextWrapper
       fontWeight={700}
       fontSize={12}
-      color={"policeMedium"}
       {...props}
     />
   );

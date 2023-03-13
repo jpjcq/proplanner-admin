@@ -3,12 +3,11 @@ import Background from "./Background";
 import Bookings from "./Bookings";
 
 const RelativeWrapper = styled.div`
-  height: 730px;
+  flex: 19;
   position: relative;
-  margin: 14px;
+  margin: 0 14px 14px 14px;
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: 0px 6px 14px -6px rgba(24, 39, 75, 0.12),
-    0px 10px 32px -4px rgba(24, 39, 75, 0.1);
+  box-shadow: ${({ theme }) => theme.boxShadowMedium.outset};
   border-radius: 20px;
   overflow: hidden;
 `;

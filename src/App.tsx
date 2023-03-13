@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Button } from "rebass";
 import Agenda from "./components/Agenda";
 import DatePicker from "./components/DatePicker";
+import Navbar from "./components/Navbar";
 import AgendaContext from "./contexts/agenda/agenda-context";
 
 export default function App() {
@@ -9,23 +10,12 @@ export default function App() {
   const agendaCtx = useContext(AgendaContext);
   return (
     <>
+      <Navbar onDatePickerClick={setIsDatePickerOpen} />
       <Agenda />
       <DatePicker
         isOpen={isDatePickerOpen}
         onDismiss={() => setIsDatePickerOpen(false)}
       />
-      <Button
-        onClick={() => setIsDatePickerOpen(true)}
-        style={{ backgroundColor: "black", marginLeft: "50px" }}
-      >
-        Date Picker
-      </Button>
-      <Button
-        onClick={() => agendaCtx.toogleTimeInterval()}
-        style={{ backgroundColor: "black", marginLeft: "50px" }}
-      >
-        Toogle TimeFrame
-      </Button>
     </>
   );
 }

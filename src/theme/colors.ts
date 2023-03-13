@@ -14,8 +14,11 @@ const commonTheme = {
       blue: "#3E60F6",
     },
   },
-  boxShadow:
-    "0px 2px 4px -2px rgba(24, 39, 75, 0.12), 0px 4px 4px -2px rgba(24, 39, 75, 0.08)",
+  boxShadowMedium: {
+    outset: "0px 2px 4px -2px rgba(24, 39, 75, 0.12), 0px 4px 4px -2px rgba(24, 39, 75, 0.08)",
+    inset: "inset 0px 2px 4px -2px rgba(24, 39, 75, 0.12), inset 0px 4px 4px -2px rgba(24, 39, 75, 0.08)"
+  }
+
 };
 
 export const lightTheme = {

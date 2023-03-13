@@ -10,7 +10,7 @@ const Card = styled.div`
   align-items: center;
   border: 1px solid ${({theme}) => theme.colors.borderLight};
   border-radius: 10px;
-  box-shadow: ${({theme}) => theme.boxShadow};
+  box-shadow: ${({theme}) => theme.boxShadowMedium.outset};
   padding: 6px;
 `;
 
