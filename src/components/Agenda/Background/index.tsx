@@ -71,7 +71,13 @@ export default function Background() {
   );
   const columnsArray = Array.from({ length: columnsNumber }, (_, index) =>
     index === columnsNumber - 1 ? (
-      <Column key={index} style={{ border: "none", gridColumn: `2 / -1` }} />
+      <Column
+        key={index}
+        style={{
+          border: "none",
+          gridColumn: agendaCtx.xInterval === "week" ? "" : "2 / -1",
+        }}
+      />
     ) : (
       <Column key={index} />
     )
