@@ -13,7 +13,12 @@ export default function ParametersProvider({
       DateTime.now().set({ hour: 19, minute: 0, second: 0, millisecond: 0 })
     ),
     daysOff: ["dimanche", "lundi"],
-    timeFrame: 30,
+    cardColors: {
+      P1: "cardBlue",
+      P2: "cardGreen",
+      P3: "cardOrange",
+      P4: "cardYellow"
+    }
   };
 
   return (

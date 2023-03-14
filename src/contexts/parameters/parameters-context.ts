@@ -1,11 +1,20 @@
 import { createContext } from "react";
 import { Interval, DateTime } from "luxon";
 import { DAY } from "../../constants/agenda";
+import { CardColor } from "../../theme/colors";
+
+export type CardColorsKey = "P1" | "P2" | "P3" | "P4";
 
 export interface ParametersContextType {
   openingHours: Interval;
   daysOff: DAY[];
-  timeFrame: 15 | 30;
+  cardColors: {
+    [key: string]: CardColor;
+    P1: CardColor;
+    P2: CardColor;
+    P3: CardColor;
+    P4: CardColor;
+  };
 }
 
 const context: ParametersContextType = {
@@ -14,7 +23,12 @@ const context: ParametersContextType = {
     DateTime.now().set({ hour: 24, minute: 0, second: 0, millisecond: 0 })
   ),
   daysOff: [],
-  timeFrame: 30,
+  cardColors: {
+    P1: "cardBlue",
+    P2: "cardGreen",
+    P3: "cardOrange",
+    P4: "cardYellow",
+  },
 };
 
 const ParametersContext = createContext(context);

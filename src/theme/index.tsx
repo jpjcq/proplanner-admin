@@ -38,4 +38,7 @@ export const ThemedGlobalStyle = createGlobalStyle<{theme: Theme}>`
   &:focus {
     outline: none;
   }
+  .swiper-wrapper {
+    height: 100%;
+  }
 `;

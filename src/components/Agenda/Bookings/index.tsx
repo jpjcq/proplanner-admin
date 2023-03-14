@@ -19,6 +19,7 @@ export default function Bookings() {
   );
   const selectedWeek = useActiveWeek(agendaCtx.selectedDay);
   const thisIntervalBookings: Booking[] = [];
+  const cardColors = parametersCtx.cardColors;
   dummyBookings.forEach(booking =>
     agendaCtx.xInterval === "week"
       ? selectedWeek.contains(booking.serviceTime.start) &&
@@ -29,7 +30,7 @@ export default function Bookings() {
   const bookingsToDisplay = thisIntervalBookings.map((booking, index) => (
     <BookingCard
       key={index}
-      color="cardBlue"
+      color={cardColors[`${booking.service?._id.substring(0, 2)}`]}
       coordinates={getCardCoodinates(booking, parametersCtx, agendaCtx)}
     />
   ));
