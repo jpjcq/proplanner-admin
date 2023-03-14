@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import BookingCard from "./BookingCard";
 import GridLayout from "../GridLayout";
 import getCardCoodinates from "../../../utils/getCardCoordinates";
@@ -9,10 +9,12 @@ import useActiveWeek from "../../../hooks/useActiveWeek";
 //To fetch from db
 import dummyBookings from "../../../data/dummyBookings";
 import { Interval } from "luxon";
+import BookingCardModal from "./BookingCardModal";
 
 export default function Bookings() {
   const agendaCtx = useContext(AgendaContext);
   const parametersCtx = useContext(ParametersContext);
+  const [isCardModalOpen, setIsCardModalOpen] = useState(false);
   const selectedDayInterval = Interval.fromDateTimes(
     agendaCtx.selectedDay.startOf("day"),
     agendaCtx.selectedDay.endOf("day")
@@ -28,11 +30,18 @@ export default function Bookings() {
         thisIntervalBookings.push(booking)
   );
   const bookingsToDisplay = thisIntervalBookings.map((booking, index) => (
-    <BookingCard
-      key={index}
-      color={cardColors[`${booking.service?._id.substring(0, 2)}`]}
-      coordinates={getCardCoodinates(booking, parametersCtx, agendaCtx)}
-    />
+    <>
+      <BookingCard
+        key={index}
+        color={cardColors[`${booking.service?._id.substring(0, 2)}`]}
+        coordinates={getCardCoodinates(booking, parametersCtx, agendaCtx)}
+        onClick={() => setIsCardModalOpen(true)}
+      />
+      <BookingCardModal
+        isOpen={isCardModalOpen}
+        onDismiss={() => setIsCardModalOpen(false)}
+      />
+    </>
   ));
 
   return (

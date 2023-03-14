@@ -38,11 +38,16 @@ const Hour = styled.div<{ color: CardColor }>`
 interface BookingCardProps {
   color: CardColor;
   coordinates: string;
+  onClick: () => void;
 }
 
-export default function BookingCard({ color, coordinates }: BookingCardProps) {
+export default function BookingCard({
+  color,
+  coordinates,
+  onClick,
+}: BookingCardProps) {
   return (
-    <Card color={color} coordinates={coordinates}>
+    <Card color={color} coordinates={coordinates} onClick={onClick}>
       <HoursWrapper style={{ marginBottom: "7px" }}>
         <Hour color={color}>
           <SmallCaption color={"white"}>09:00</SmallCaption>

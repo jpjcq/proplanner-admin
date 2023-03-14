@@ -11,7 +11,7 @@ const StyledDialogOverlay = styled(DialogOverlay)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #080b117f;
+    background-color: #080b1137;
   }
 `;
 
