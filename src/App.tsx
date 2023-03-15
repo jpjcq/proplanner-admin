@@ -7,10 +7,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CustomerList from "./components/CustomerList";
 import SliderContext from "./contexts/slider/slider-context";
+import CreateCustomerModal from "./components/CustomerList/CreateCustomerModal";
 
 export default function App() {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [searchBarContent, setSearchBarContent] = useState("");
+  const [isCreateCustomerOpen, setIsCreateCustomerOpen] = useState(false);
   const sliderRef = useRef<Slider>(null);
   const sliderCtx = useContext(SliderContext);
   const goToSlide = (index: number): void => {
@@ -31,13 +33,18 @@ export default function App() {
   return (
     <>
       <Navbar
-        onDatePickerClick={setIsDatePickerOpen}
+        onOpenDatePicker={setIsDatePickerOpen}
+        onOpenCreateCustomer={setIsCreateCustomerOpen}
         goToSlide={goToSlide}
         searchBarContent={setSearchBarContent}
       />
       <DatePicker
         isOpen={isDatePickerOpen}
         onDismiss={() => setIsDatePickerOpen(false)}
+      />
+      <CreateCustomerModal
+        isOpen={isCreateCustomerOpen}
+        onDismiss={() => setIsCreateCustomerOpen(false)}
       />
       <Slider {...settings} ref={sliderRef}>
         <Agenda />

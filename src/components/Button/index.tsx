@@ -32,7 +32,7 @@ const PrimaryButtonText = styled.span`
 export function PrimaryButton({ children }: { children: ReactNode }) {
   return (
     <PrimaryButtonBackground whileTap={{scale: 0.9}}>
-      <PrimaryButtonText>Total: {children}€</PrimaryButtonText>
+      <PrimaryButtonText>{children}</PrimaryButtonText>
     </PrimaryButtonBackground>
   );
 }

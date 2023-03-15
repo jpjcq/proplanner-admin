@@ -1,4 +1,4 @@
-import { Text, TextProps } from "rebass";
+import { Text, TextProps } from "rebass/styled-components";
 import styled from "styled-components";
 
 const TextWrapper = styled(Text).withConfig({

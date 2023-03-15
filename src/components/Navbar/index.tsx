@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
-import { Dispatch, RefObject, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { Text } from "rebass/styled-components";
 import styled, { useTheme } from "styled-components";
 import AgendaContext from "../../contexts/agenda/agenda-context";
 import SliderContext from "../../contexts/slider/slider-context";
@@ -12,6 +13,8 @@ import SearchBar from "../SearchBar";
 import DayWeekSwitch from "./DayWeekSwitch";
 import NavButton from "./NavButton";
 import PageSwitcher from "./PageSwitcher";
+// import from db
+import dummyCustomers from "../../data/dummyCustomers";
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,6 +27,15 @@ const ArrowsWrapper = styled.div`
   display: flex;
 `;
 
+const CustomerCount = styled(Text)`
+  font-size: 12px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.policeLight};
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+`;
+
 const spring = {
   type: "spring",
   stiffness: 700,
@@ -31,13 +43,15 @@ const spring = {
 };
 
 interface NavbarProps {
-  onDatePickerClick: Dispatch<SetStateAction<boolean>>;
+  onOpenDatePicker: Dispatch<SetStateAction<boolean>>;
+  onOpenCreateCustomer: Dispatch<SetStateAction<boolean>>;
   goToSlide: (index: number) => void;
   searchBarContent: Dispatch<SetStateAction<string>>;
 }
 
 export default function Navbar({
-  onDatePickerClick,
+  onOpenDatePicker,
+  onOpenCreateCustomer,
   goToSlide,
   searchBarContent,
 }: NavbarProps) {
@@ -49,7 +63,7 @@ export default function Navbar({
       <PageSwitcher goToSlide={goToSlide} />
       {sliderCtx.activeSlider === 0 && (
         <>
-          <NavButton onClick={() => onDatePickerClick(true)}>
+          <NavButton onClick={() => onOpenDatePicker(true)}>
             <Calendar />
           </NavButton>
           <NavButton onClick={() => agendaCtx.setSelectedDay(DateTime.now())}>
@@ -98,6 +112,12 @@ export default function Navbar({
             transition={spring}
             onChange={e => searchBarContent(e.target.value)}
           />
+          <NavButton onClick={() => onOpenCreateCustomer(true)} accent>
+            Créer
+          </NavButton>
+          <CustomerCount>
+            Nombre de clientes: {dummyCustomers.length}
+          </CustomerCount>
         </>
       )}
       <NavButton>

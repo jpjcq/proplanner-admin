@@ -57,7 +57,7 @@ const Info = styled.span`
 const BackgroundInfo = styled(BigBody)`
   display: flex;
   align-items: center;
-  margin-right: 8px !important;
+  margin-right: 8px;
 `;
 
 const BlackBackgroundInfo = styled(BackgroundInfo)`
@@ -225,7 +225,7 @@ export default function BookingCardModal({
             >
               Retour
             </SecondaryButton>
-            <PrimaryButton>{openedBooking?.total}</PrimaryButton>
+            <PrimaryButton>Total: {openedBooking?.total}€</PrimaryButton>
           </ButtonsWrapper>
         </Line>
       </CardModal>
