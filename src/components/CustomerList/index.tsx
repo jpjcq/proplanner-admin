@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { IntrinsicElementsKeys } from "styled-components";
 import { SmallSubHeader } from "../../theme/text";
 import { Link } from "../Link";
 import { Customer } from "../../types/customer";
@@ -40,8 +40,22 @@ const Links = styled.div`
   justify-content: flex-end;
 `;
 
-export default function CustomerList() {
-  const customerList = dummyCustomers.map((customer, index, array) => (
+interface CustomerListProps {
+  searchBarContent: string;
+}
+
+export default function CustomerList({ searchBarContent }: CustomerListProps) {
+  const searchResultList = dummyCustomers.filter((customer, _, array) => {
+    if (searchBarContent.charAt(0) === "0") {
+      return customer.tel
+        .replace(/\s/g, "")
+        .match(searchBarContent.replace(/\s/g, ""));
+    } else {
+      return customer.name.toLowerCase().match(searchBarContent.toLowerCase());
+    }
+  });
+
+  const fullCustomerList = searchResultList.map((customer, index, array) => (
     <Fragment key={index}>
       <CustomerLine>
         <Name>
@@ -63,5 +77,5 @@ export default function CustomerList() {
       <SeparatorLight />
     </Fragment>
   ));
-  return <RelativeWrapper>{customerList}</RelativeWrapper>;
+  return <RelativeWrapper>{fullCustomerList}</RelativeWrapper>;
 }
