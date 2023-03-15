@@ -8,6 +8,7 @@ import Bell from "../Icons/Bell";
 import Calendar from "../Icons/Calendar";
 import DayWeekSwitch from "./DayWeekSwitch";
 import NavButton from "./NavButton";
+import PageSwitcher from "./PageSwitcher";
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,13 +23,14 @@ const ArrowsWrapper = styled.div`
 
 interface NavbarProps {
   onDatePickerClick: Dispatch<SetStateAction<boolean>>;
-  activeSlide: number;
+  goToSlide: (index: number) => void;
 }
 
-export default function Navbar({ onDatePickerClick }: NavbarProps) {
+export default function Navbar({ onDatePickerClick, goToSlide }: NavbarProps) {
   const agendaCtx = useContext(AgendaContext);
   return (
     <Wrapper>
+      <PageSwitcher goToSlide={goToSlide} />
       <NavButton onClick={() => onDatePickerClick(true)}>
         <Calendar />
       </NavButton>

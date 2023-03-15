@@ -48,10 +48,10 @@ export default function CustomerList() {
           <SmallSubHeader>{customer.name}</SmallSubHeader>
         </Name>
         <Infos>
-          <SmallSubHeader style={{ marginRight: "25px" }}>
+          <SmallSubHeader style={{ marginRight: "25px" }} fontWeight={500}>
             {customer.tel}
           </SmallSubHeader>
-          <SmallSubHeader style={{ marginRight: "75px" }}>
+          <SmallSubHeader style={{ marginRight: "75px" }} fontWeight={500}>
             {customer.mail}
           </SmallSubHeader>
           <Links>
