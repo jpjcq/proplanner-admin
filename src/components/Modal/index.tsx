@@ -7,11 +7,12 @@ import { BREAKPOINTS } from "../../theme";
 const StyledDialogOverlay = styled(DialogOverlay)`
   &[data-reach-dialog-overlay] {
     position: fixed;
+    z-index: 999;
     inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #080b1137;
+    background-color: #080b117e;
   }
 `;
 
@@ -19,7 +20,7 @@ const StyledDialogContent = styled(DialogContent)<{ $isCart: boolean }>`
   &[data-reach-dialog-content] {
     background-color: ${({theme}) => theme.colors.background};
     border-radius: 20px;
-    padding: 34px 40px 16px 40px;
+    padding: 34px 40px;
   }
   &:focus {
     outline: none;

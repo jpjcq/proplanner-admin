@@ -28,12 +28,55 @@ export function BigCaption(props: TextProps) {
   );
 }
 
+export function BodyRegular(props: TextProps) {
+  return (
+    <TextWrapper
+      fontWeight={500}
+      fontSize={16}
+      color={"policeMedium"}
+      {...props}
+    />
+  );
+}
+
+export function BigBody(props: TextProps) {
+  return (
+    <TextWrapper
+      fontWeight={700}
+      fontSize={16}
+      color={"policeMedium"}
+      {...props}
+    />
+  );
+}
+
 export function SmallSubHeader(props: TextProps) {
   return (
     <TextWrapper
       fontWeight={700}
       fontSize={14}
       color={"policeMedium"}
+      {...props}
+    />
+  );
+}
+
+export function MediumSubHeader(props: TextProps) {
+  return (
+    <TextWrapper
+      fontWeight={600}
+      fontSize={20}
+      color={"policeMedium"}
+      {...props}
+    />
+  );
+}
+
+export function SmallHeadline(props: TextProps) {
+  return (
+    <TextWrapper
+      fontWeight={700}
+      fontSize={24}
       {...props}
     />
   );

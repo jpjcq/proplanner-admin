@@ -9,6 +9,7 @@ const commonTheme = {
       cardBrown: "#C0783B",
       cardPurple: "#7E38F6",
       cardYellow: "#F7CD55",
+      cardDefault: "#979A9D"
     },
     validation: {
       blue: "#3E60F6",

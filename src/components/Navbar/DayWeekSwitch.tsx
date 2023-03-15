@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import AgendaContext, {
   AgendaContextType,

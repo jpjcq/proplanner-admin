@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { CardColor, Theme } from "../../../theme/colors";
+import { CardColor } from "../../../theme/colors";
 import { BigCaption, SmallCaption } from "../../../theme/text";
 import { opacify } from "../../../theme/utils";
+import { Booking } from "../../../types/booking";
 
 const Card = styled.div<{ color: CardColor; coordinates: string }>`
   display: flex;
@@ -39,34 +40,45 @@ interface BookingCardProps {
   color: CardColor;
   coordinates: string;
   onClick: () => void;
+  booking: Booking;
 }
 
 export default function BookingCard({
   color,
   coordinates,
   onClick,
+  booking,
 }: BookingCardProps) {
+  const servicesList = booking.services?.map((service, index) => (
+    <SmallCaption key={index} fontWeight={700} style={{ marginBottom: "7px" }}>
+      {service.short}
+    </SmallCaption>
+  ));
   return (
     <Card color={color} coordinates={coordinates} onClick={onClick}>
       <HoursWrapper style={{ marginBottom: "7px" }}>
         <Hour color={color}>
-          <SmallCaption color={"white"}>09:00</SmallCaption>
+          <SmallCaption color={"white"}>
+            {booking.serviceTime.start.hour}:{booking.serviceTime.start.minute}
+            {booking.serviceTime.start.minute === 0 ? 0 : ""}
+          </SmallCaption>
         </Hour>
         <Hour color={color}>
-          <SmallCaption color={"white"}>11:00</SmallCaption>
+          <SmallCaption color={"white"}>
+            {booking.serviceTime.end.hour}:{booking.serviceTime.end.minute}
+            {booking.serviceTime.end.minute === 0 ? 0 : ""}
+          </SmallCaption>
         </Hour>
       </HoursWrapper>
       <BigCaption color={"policeBlack"} style={{ marginBottom: "7px" }}>
-        Joséphine Pinot
+        {booking.customer?.name}
       </BigCaption>
-      <SmallCaption fontWeight={700} style={{ marginBottom: "7px" }}>
-        Comblage gel tardif
-      </SmallCaption>
+      {servicesList}
       <span>
         <SmallCaption color={"policeBlack"} fontWeight={700}>
           Note:{" "}
         </SmallCaption>
-        <SmallCaption fontWeight={600}>Attention super connasse!</SmallCaption>
+        <SmallCaption fontWeight={600}>{booking.note}</SmallCaption>
       </span>
     </Card>
   );

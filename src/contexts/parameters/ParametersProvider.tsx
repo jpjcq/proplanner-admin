@@ -17,8 +17,10 @@ export default function ParametersProvider({
       P1: "cardBlue",
       P2: "cardGreen",
       P3: "cardOrange",
-      P4: "cardYellow"
-    }
+      P4: "cardYellow",
+      MULTIPLE: "cardPurple",
+      DEFAULT: "cardDefault",
+    },
   };
 
   return (

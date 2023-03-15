@@ -14,6 +14,8 @@ export interface ParametersContextType {
     P2: CardColor;
     P3: CardColor;
     P4: CardColor;
+    MULTIPLE: CardColor;
+    DEFAULT: CardColor;
   };
 }
 
@@ -28,6 +30,8 @@ const context: ParametersContextType = {
     P2: "cardGreen",
     P3: "cardOrange",
     P4: "cardYellow",
+    MULTIPLE: "cardPurple",
+    DEFAULT: "cardDefault"
   },
 };
 
