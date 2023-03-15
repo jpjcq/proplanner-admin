@@ -99,7 +99,10 @@ export default function Navbar({
             </NavButton>
           </ArrowsWrapper>
           <DayWeekSwitch />
-          <NavButton onClick={() => agendaCtx.toogleTimeInterval()}>
+          <NavButton
+            onClick={() => agendaCtx.toogleTimeInterval()}
+            style={{ width: "78px" }}
+          >
             {agendaCtx.timeInterval}min
           </NavButton>
         </>

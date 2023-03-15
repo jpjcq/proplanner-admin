@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import CustomerList from "./components/CustomerList";
 import SliderContext from "./contexts/slider/slider-context";
 import CreateCustomerModal from "./components/CustomerList/CreateCustomerModal";
+import Parameters from "./components/Parameters";
 
 export default function App() {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
@@ -49,7 +50,7 @@ export default function App() {
       <Slider {...settings} ref={sliderRef}>
         <Agenda />
         <CustomerList searchBarContent={searchBarContent} />
-        <Agenda />
+        <Parameters />
       </Slider>
     </>
   );
