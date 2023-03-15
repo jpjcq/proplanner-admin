@@ -3,13 +3,12 @@ import Background from "./Background";
 import Bookings from "./Bookings";
 
 const RelativeWrapper = styled.div`
-  height: 100%;
+  height: 728px;
   position: relative;
   margin: 0 14px 14px 14px;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.boxShadowMedium.outset};
   border-radius: 20px;
-  overflow: hidden;
 `;
 
 export default function Agenda() {

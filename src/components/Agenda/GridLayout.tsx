@@ -15,8 +15,10 @@ const Grid = styled.div<{
   parametersCtx: ParametersContextType;
   bookingLayoutTimeInterval?: GridLayoutTimeInterval;
 }>`
-  min-height: 100%;
+  height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 0;
   bottom: 0;

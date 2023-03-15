@@ -7,6 +7,8 @@ import toHours from "../../../utils/toHours";
 import { PrimaryButton, SecondaryButton } from "../../Button";
 import CheckboxChecked from "../../Icons/CheckboxChecked";
 import Modal from "../../Modal";
+import { Link } from "../../Link";
+import { SeparatorMedium } from "../../Separator";
 
 const CardModal = styled.div`
   display: flex;
@@ -82,21 +84,8 @@ const PriceAndDuration = styled.div`
   display: flex;
 `;
 
-const Separator = styled.div`
-  margin: 20px 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderMedium};
-`;
-
 const Links = styled.div`
   display: flex;
-`;
-
-const Link = styled.span`
-  margin-right: 50px;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: underline;
-  color: ${({ theme }) => theme.colors.policeDark};
 `;
 
 const SMS = styled.div`
@@ -145,7 +134,9 @@ export default function BookingCardModal({
             <BackgroundInfo>€</BackgroundInfo>
           </PriceAndDuration>
         </Infos>
-        {index < array.length - 1 && <Separator />}
+        {index < array.length - 1 && (
+          <SeparatorMedium style={{ margin: "20px 0" }} />
+        )}
       </Fragment>
     ));
   return (
@@ -215,12 +206,12 @@ export default function BookingCardModal({
           </Label>
           <ServicesListWrapper>{servicesList}</ServicesListWrapper>
         </Line>
-        <Separator />
+        <SeparatorMedium style={{ margin: "20px 0" }} />
         <Line style={{ justifyContent: "space-between" }}>
           <Links>
-            <Link>Venue</Link>
-            <Link>Pas venue</Link>
-            <Link>Supprimer</Link>
+            <Link style={{ marginRight: "50px" }}>Venue</Link>
+            <Link style={{ marginRight: "50px" }}>Pas venue</Link>
+            <Link style={{ marginRight: "50px" }}>Supprimer</Link>
           </Links>
           <SMS>
             <CheckboxChecked />

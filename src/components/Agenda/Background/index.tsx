@@ -10,6 +10,12 @@ import AgendaContext, {
 } from "../../../contexts/agenda/agenda-context";
 import SelectedWeekLabel from "./SelectedWeekLabel";
 
+const Wrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Line = styled.div<{ timeInterval: TimeInterval }>`
   ${({ timeInterval, theme }) =>
     timeInterval === 15
@@ -84,7 +90,7 @@ export default function Background() {
   );
 
   return (
-    <>
+    <Wrapper>
       <GridLayout>{linesArray}</GridLayout>
       <GridLayout>{columnsArray}</GridLayout>
       <GridLayout>
@@ -98,6 +104,6 @@ export default function Background() {
       <GridLayout>
         <HoursLabels />
       </GridLayout>
-    </>
+    </Wrapper>
   );
 }

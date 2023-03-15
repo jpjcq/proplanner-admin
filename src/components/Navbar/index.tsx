@@ -22,6 +22,7 @@ const ArrowsWrapper = styled.div`
 
 interface NavbarProps {
   onDatePickerClick: Dispatch<SetStateAction<boolean>>;
+  activeSlide: number;
 }
 
 export default function Navbar({ onDatePickerClick }: NavbarProps) {
