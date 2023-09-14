@@ -11,7 +11,6 @@ import CreateCustomerModal from "./components/CustomerList/CreateCustomerModal";
 import Parameters from "./components/Parameters";
 
 export default function App() {
-  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [searchBarContent, setSearchBarContent] = useState("");
   const [isCreateCustomerOpen, setIsCreateCustomerOpen] = useState(false);
   const sliderRef = useRef<Slider>(null);
@@ -21,7 +20,7 @@ export default function App() {
     sliderCtx.setActiveSlider(index);
   };
 
-  var settings = {
+  const settings = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -31,21 +30,13 @@ export default function App() {
       sliderCtx.setActiveSlider(current);
     },
   };
+
   return (
     <>
       <Navbar
-        onOpenDatePicker={setIsDatePickerOpen}
         onOpenCreateCustomer={setIsCreateCustomerOpen}
         goToSlide={goToSlide}
         searchBarContent={setSearchBarContent}
-      />
-      <DatePicker
-        isOpen={isDatePickerOpen}
-        onDismiss={() => setIsDatePickerOpen(false)}
-      />
-      <CreateCustomerModal
-        isOpen={isCreateCustomerOpen}
-        onDismiss={() => setIsCreateCustomerOpen(false)}
       />
       <Slider {...settings} ref={sliderRef}>
         <Agenda />

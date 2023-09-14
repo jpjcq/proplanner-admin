@@ -1,20 +1,21 @@
-import { DateTime } from "luxon";
 import { Dispatch, SetStateAction, useContext } from "react";
-import { Text } from "rebass/styled-components";
 import styled, { useTheme } from "styled-components";
+import { Text } from "rebass/styled-components";
+import { DateTime } from "luxon";
 import AgendaContext from "../../contexts/agenda/agenda-context";
 import SliderContext from "../../contexts/slider/slider-context";
 import { Theme } from "../../theme/colors";
 import ArrowLeft from "../Icons/ArrowLeft";
 import ArrowRight from "../Icons/ArrowRight";
 import Bell from "../Icons/Bell";
-import Calendar from "../Icons/Calendar";
 import SearchBar from "../SearchBar";
 import DayWeekSwitch from "./DayWeekSwitch";
 import NavButton from "./NavButton";
 import PageSwitcher from "./PageSwitcher";
 // import from db
 import dummyCustomers from "../../data/dummyCustomers";
+import DatePicker from "../DatePicker";
+import CreateCustomerModal from "../CustomerList/CreateCustomerModal";
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,14 +44,12 @@ const spring = {
 };
 
 interface NavbarProps {
-  onOpenDatePicker: Dispatch<SetStateAction<boolean>>;
   onOpenCreateCustomer: Dispatch<SetStateAction<boolean>>;
   goToSlide: (index: number) => void;
   searchBarContent: Dispatch<SetStateAction<string>>;
 }
 
 export default function Navbar({
-  onOpenDatePicker,
   onOpenCreateCustomer,
   goToSlide,
   searchBarContent,
@@ -63,9 +62,7 @@ export default function Navbar({
       <PageSwitcher goToSlide={goToSlide} />
       {sliderCtx.activeSlider === 0 && (
         <>
-          <NavButton onClick={() => onOpenDatePicker(true)}>
-            <Calendar />
-          </NavButton>
+          <DatePicker />
           <NavButton onClick={() => agendaCtx.setSelectedDay(DateTime.now())}>
             Aujourd'hui
           </NavButton>
@@ -113,11 +110,9 @@ export default function Navbar({
             placeholder="Chercher un client par nom ou par téléphone"
             whileFocus={{ boxShadow: theme.boxShadowMedium.inset }}
             transition={spring}
-            onChange={e => searchBarContent(e.target.value)}
+            onChange={(e) => searchBarContent(e.target.value)}
           />
-          <NavButton onClick={() => onOpenCreateCustomer(true)} accent>
-            Créer
-          </NavButton>
+          <CreateCustomerModal />
           <CustomerCount>
             Nombre de clientes: {dummyCustomers.length}
           </CustomerCount>

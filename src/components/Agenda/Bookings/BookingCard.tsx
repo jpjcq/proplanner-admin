@@ -59,14 +59,14 @@ export default function BookingCard({
       <HoursWrapper style={{ marginBottom: "7px" }}>
         <Hour color={color}>
           <SmallCaption color={"white"}>
-            {booking.serviceTime.start.hour}:{booking.serviceTime.start.minute}
-            {booking.serviceTime.start.minute === 0 ? 0 : ""}
+            {booking.serviceTime.start!.hour}:{booking.serviceTime.start!.minute}
+            {booking.serviceTime.start!.minute === 0 ? 0 : ""}
           </SmallCaption>
         </Hour>
         <Hour color={color}>
           <SmallCaption color={"white"}>
-            {booking.serviceTime.end.hour}:{booking.serviceTime.end.minute}
-            {booking.serviceTime.end.minute === 0 ? 0 : ""}
+            {booking.serviceTime.end!.hour}:{booking.serviceTime.end!.minute}
+            {booking.serviceTime.end!.minute === 0 ? 0 : ""}
           </SmallCaption>
         </Hour>
       </HoursWrapper>

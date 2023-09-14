@@ -1,5 +1,7 @@
+import { Close, Portal, Root, Trigger } from "@radix-ui/react-dialog";
+import NavButton from "../Navbar/NavButton";
+import { StyledContent, StyledOverlay } from "../Modal";
 import styled from "styled-components";
-import Modal from "../Modal";
 import { SmallHeadline } from "../../theme/text";
 import { ModalInput } from "../Input";
 import { SeparatorMedium } from "../Separator";
@@ -39,57 +41,58 @@ const SMS = styled.div`
 
 const ButtonsWrapper = styled.div``;
 
-interface CreateCustomerModalProps {
-  isOpen: boolean;
-  onDismiss: () => void;
-}
-
-export default function CreateCustomerModal({
-  isOpen,
-  onDismiss,
-}: CreateCustomerModalProps) {
+export default function CreateCustomerModal() {
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss}>
-      <CardModal>
-        <Line>
-          <Label>
-            <SmallHeadline>Cliente</SmallHeadline>
-          </Label>
-          <ModalInput placeholder="Nom" />
-          <ModalInput placeholder="Téléphone" />
-          <ModalInput placeholder="Mail" />
-        </Line>
-        <Line>
-          <Label>
-            <SmallHeadline>Infos</SmallHeadline>
-          </Label>
-          <ModalInput
-            placeholder="Infos supplémentaires"
-            style={{ width: "100%" }}
-          />
-        </Line>
-        <SeparatorMedium style={{ margin: "20px 0" }} />
-        <Line style={{ justifyContent: "space-between" }}>
-          <SMS>
-            <CheckboxChecked />
-            &nbsp;Empêcher cette cliente de prendre RDV en ligne
-          </SMS>
-          <SMS>
-            <CheckboxChecked />
-            &nbsp;SMS de rappel
-          </SMS>
-          <ButtonsWrapper>
-            <SecondaryButton
-              style={{ marginRight: "40px" }}
-              onClick={onDismiss}
-              whileTap={{ scale: 0.9 }}
-            >
-              Retour
-            </SecondaryButton>
-            <PrimaryButton>Créer</PrimaryButton>
-          </ButtonsWrapper>
-        </Line>
-      </CardModal>
-    </Modal>
+    <Root>
+      <Trigger asChild>
+        <NavButton accent>Créer</NavButton>
+      </Trigger>
+      <Portal>
+        <StyledOverlay />
+        <StyledContent>
+          <CardModal>
+            <Line>
+              <Label>
+                <SmallHeadline>Cliente</SmallHeadline>
+              </Label>
+              <ModalInput placeholder="Nom" />
+              <ModalInput placeholder="Téléphone" />
+              <ModalInput placeholder="Mail" />
+            </Line>
+            <Line>
+              <Label>
+                <SmallHeadline>Infos</SmallHeadline>
+              </Label>
+              <ModalInput
+                placeholder="Infos supplémentaires"
+                style={{ width: "100%" }}
+              />
+            </Line>
+            <SeparatorMedium style={{ margin: "20px 0" }} />
+            <Line style={{ justifyContent: "space-between" }}>
+              <SMS>
+                <CheckboxChecked />
+                &nbsp;Empêcher cette cliente de prendre RDV en ligne
+              </SMS>
+              <SMS>
+                <CheckboxChecked />
+                &nbsp;SMS de rappel
+              </SMS>
+              <ButtonsWrapper>
+                <Close asChild>
+                  <SecondaryButton
+                    style={{ marginRight: "40px" }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    Retour
+                  </SecondaryButton>
+                </Close>
+                <PrimaryButton>Créer</PrimaryButton>
+              </ButtonsWrapper>
+            </Line>
+          </CardModal>
+        </StyledContent>
+      </Portal>
+    </Root>
   );
 }

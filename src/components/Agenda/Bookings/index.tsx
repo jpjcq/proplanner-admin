@@ -23,50 +23,40 @@ export default function Bookings() {
   );
   const selectedWeek = useActiveWeek(agendaCtx.selectedDay);
   const thisIntervalBookings: Booking[] = [];
-  dummyBookings.forEach(booking =>
+  dummyBookings.forEach((booking) =>
     agendaCtx.xInterval === "week"
-      ? selectedWeek.contains(booking.serviceTime.start) &&
+      ? selectedWeek.contains(booking.serviceTime.start!) &&
         thisIntervalBookings.push(booking)
-      : selectedDayInterval.contains(booking.serviceTime.start) &&
+      : selectedDayInterval.contains(booking.serviceTime.start!) &&
         thisIntervalBookings.push(booking)
   );
   const handleClick = (booking: Booking) => {
     setIsCardModalOpen(true);
     setBookingOpened(booking);
   };
-  const bookingsToDisplay = thisIntervalBookings.map(
-    (booking, index, array) => {
-      let color: CardColor;
-      if (booking.services && booking.services.length === 1) {
-        color =
-          parametersCtx.cardColors[
-            `${booking.services?.[0]?._id?.substring(0, 2)}`
-          ];
-      } else if (booking.services && booking.services.length > 1) {
-        color = parametersCtx.cardColors["MULTIPLE"];
-      } else {
-        color = parametersCtx.cardColors["DEFAULT"];
-      }
-      return (
+  const bookingsToDisplay = thisIntervalBookings.map((booking, index) => {
+    let color: CardColor;
+    if (booking.services && booking.services.length === 1) {
+      color =
+        parametersCtx.cardColors[
+          `${booking.services?.[0]?._id?.substring(0, 2)}`
+        ];
+    } else if (booking.services && booking.services.length > 1) {
+      color = parametersCtx.cardColors["MULTIPLE"];
+    } else {
+      color = parametersCtx.cardColors["DEFAULT"];
+    }
+    return (
+      <BookingCardModal key={index} openedBooking={bookingOpened}>
         <BookingCard
-          key={index}
           color={color}
           coordinates={getCardCoodinates(booking, parametersCtx, agendaCtx)}
           onClick={() => handleClick(booking)}
           booking={booking}
         />
-      );
-    }
-  );
+      </BookingCardModal>
+    );
+  });
 
-  return (
-    <>
-      <GridLayout bookingLayoutTimeInterval={5}>{bookingsToDisplay}</GridLayout>
-      <BookingCardModal
-        isOpen={isCardModalOpen}
-        onDismiss={() => setIsCardModalOpen(false)}
-        openedBooking={bookingOpened as Booking}
-      />
-    </>
-  );
+  return <GridLayout bookingLayoutTimeInterval={5}>{bookingsToDisplay}</GridLayout>;
 }

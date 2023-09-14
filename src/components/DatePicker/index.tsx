@@ -1,42 +1,38 @@
-import { DateTime } from "luxon";
 import { useContext } from "react";
 import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import AgendaContext from "../../contexts/agenda/agenda-context";
-import Modal, { ModalProps } from "../Modal";
+import { DateTime } from "luxon";
 import { fr } from "date-fns/locale";
+import "react-day-picker/dist/style.css";
+import { Root, Trigger, Portal } from "@radix-ui/react-dialog";
+import AgendaContext from "../../contexts/agenda/agenda-context";
+import { StyledOverlay, StyledContent } from "../Modal";
+import NavButton from "../Navbar/NavButton";
+import Calendar from "../Icons/Calendar";
 
-interface DatePicker extends ModalProps {}
-
-function weekSelecter(day: DateTime): Date[] {
-  const selectedWeekStart = day.startOf("week");
-  const selectedWeekEnd = day.endOf("week");
-  const selectedWeekDays = [];
-
-  for (
-    let date = selectedWeekStart;
-    date <= selectedWeekEnd;
-    date = date.plus({ days: 1 })
-  ) {
-    selectedWeekDays.push(date.toJSDate());
-  }
-  return selectedWeekDays;
-}
-
-export default function DatePicker({ isOpen, onDismiss }: DatePicker) {
+export default function DatePicker() {
   const agendaCtx = useContext(AgendaContext);
+
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss}>
-      <DayPicker
-        mode="single"
-        selected={DateTime.now().toJSDate()}
-        onSelect={(day, selectedDay) =>
-          agendaCtx.setSelectedDay(DateTime.fromJSDate(selectedDay))
-        }
-        locale={fr}
-        initialFocus
-        // showOutsideDays
-      />
-    </Modal>
+    <Root>
+      <Trigger asChild>
+        <NavButton>
+          <Calendar />
+        </NavButton>
+      </Trigger>
+      <Portal>
+        <StyledOverlay />
+        <StyledContent>
+          <DayPicker
+            mode="single"
+            selected={DateTime.now().toJSDate()}
+            onSelect={(_, selectedDay) =>
+              agendaCtx.setSelectedDay(DateTime.fromJSDate(selectedDay))
+            }
+            locale={fr}
+            initialFocus
+          />
+        </StyledContent>
+      </Portal>
+    </Root>
   );
 }

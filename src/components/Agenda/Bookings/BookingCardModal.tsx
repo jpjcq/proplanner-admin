@@ -1,14 +1,15 @@
-import { Fragment, useContext } from "react";
 import styled from "styled-components";
-import ParametersContext from "../../../contexts/parameters/parameters-context";
 import { BigBody, BodyRegular, SmallHeadline } from "../../../theme/text";
+import { Portal, Root, Trigger } from "@radix-ui/react-dialog";
+import { StyledContent, StyledOverlay } from "../../Modal";
+import { Fragment, ReactNode, useContext } from "react";
+import ParametersContext from "../../../contexts/parameters/parameters-context";
 import { Booking } from "../../../types/booking";
-import toHours from "../../../utils/toHours";
-import { PrimaryButton, SecondaryButton } from "../../Button";
-import CheckboxChecked from "../../Icons/CheckboxChecked";
-import Modal from "../../Modal";
-import { Link } from "../../Link";
 import { SeparatorMedium } from "../../Separator";
+import toHours from "../../../utils/toHours";
+import { Link } from "rebass";
+import CheckboxChecked from "../../Icons/CheckboxChecked";
+import { PrimaryButton, SecondaryButton } from "../../Button";
 
 const CardModal = styled.div`
   display: flex;
@@ -99,17 +100,16 @@ const SMS = styled.div`
 const ButtonsWrapper = styled.div``;
 
 interface BookingCardModalProps {
-  isOpen: boolean;
-  onDismiss: () => void;
-  openedBooking: Booking;
+  children: ReactNode;
+  openedBooking?: Booking;
 }
 
 export default function BookingCardModal({
-  isOpen,
-  onDismiss,
+  children,
   openedBooking,
 }: BookingCardModalProps) {
   const parametersCtx = useContext(ParametersContext);
+
   const servicesList =
     openedBooking &&
     openedBooking.services?.map((service, index, array) => (
@@ -139,96 +139,102 @@ export default function BookingCardModal({
         )}
       </Fragment>
     ));
+
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss}>
-      <CardModal>
-        <Line>
-          <Label>
-            <SmallHeadline>Cliente</SmallHeadline>
-          </Label>
-          <Infos>
-            <Info>
-              <BodyRegular>{openedBooking?.customer?.name}</BodyRegular>
-            </Info>
-            <Info>
-              <BodyRegular>{openedBooking?.customer?.tel}</BodyRegular>
-            </Info>
-            <Info>
-              <BodyRegular>{openedBooking?.customer?.mail}</BodyRegular>
-            </Info>
-          </Infos>
-        </Line>
-        <Line>
-          <Label>
-            <SmallHeadline>Date</SmallHeadline>
-          </Label>
-          <Infos>
-            <Info style={{ marginRight: "34px" }}>
-              <BodyRegular>
-                {openedBooking?.serviceTime?.toLocaleString({
-                  weekday: "long",
-                  day: "numeric",
-                  month: "long",
-                })}
-              </BodyRegular>
-            </Info>
-            <Info style={{ marginRight: "8px", padding: "18px 21px" }}>
-              <BodyRegular>
-                {openedBooking?.serviceTime?.start.hour < 10 && 0}
-                {openedBooking?.serviceTime?.start.hour}
-              </BodyRegular>
-            </Info>
-            <BackgroundInfo>&nbsp;h&nbsp;</BackgroundInfo>
-            <Info style={{ padding: "18px 21px" }}>
-              <BodyRegular>
-                {openedBooking?.serviceTime?.start.minute < 10 && 0}
-                {openedBooking?.serviceTime?.start.minute}
-              </BodyRegular>
-            </Info>
-            <BackgroundInfo>&nbsp;à&nbsp;</BackgroundInfo>
-            <BlackBackgroundInfo>
-              &nbsp;{openedBooking?.serviceTime?.end.hour < 10 && 0}
-              {openedBooking?.serviceTime?.end.hour}h
-              {openedBooking?.serviceTime?.end.minute < 10 && 0}
-              {openedBooking?.serviceTime?.end.minute}&nbsp;
-            </BlackBackgroundInfo>
-            <BackgroundInfo>
-              durée:&nbsp;
-              <BlackBackgroundInfo>
-                {toHours(openedBooking?.serviceTime?.length("minutes"))}
-              </BlackBackgroundInfo>
-            </BackgroundInfo>
-          </Infos>
-        </Line>
-        <Line>
-          <Label>
-            <SmallHeadline>Prestations</SmallHeadline>
-          </Label>
-          <ServicesListWrapper>{servicesList}</ServicesListWrapper>
-        </Line>
-        <SeparatorMedium style={{ margin: "20px 0" }} />
-        <Line style={{ justifyContent: "space-between" }}>
-          <Links>
-            <Link style={{ marginRight: "50px" }}>Venue</Link>
-            <Link style={{ marginRight: "50px" }}>Pas venue</Link>
-            <Link style={{ marginRight: "50px" }}>Supprimer</Link>
-          </Links>
-          <SMS>
-            <CheckboxChecked />
-            &nbsp;SMS de rappel
-          </SMS>
-          <ButtonsWrapper>
-            <SecondaryButton
-              style={{ marginRight: "40px" }}
-              onClick={onDismiss}
-              whileTap={{ scale: 0.9 }}
-            >
-              Retour
-            </SecondaryButton>
-            <PrimaryButton>Total: {openedBooking?.total}€</PrimaryButton>
-          </ButtonsWrapper>
-        </Line>
-      </CardModal>
-    </Modal>
+    <Root>
+      <Trigger asChild>{children}</Trigger>
+      <Portal>
+        <StyledOverlay />
+        <StyledContent>
+          <CardModal>
+            <Line>
+              <Label>
+                <SmallHeadline>Cliente</SmallHeadline>
+              </Label>
+              <Infos>
+                <Info>
+                  <BodyRegular>{openedBooking?.customer?.name}</BodyRegular>
+                </Info>
+                <Info>
+                  <BodyRegular>{openedBooking?.customer?.tel}</BodyRegular>
+                </Info>
+                <Info>
+                  <BodyRegular>{openedBooking?.customer?.mail}</BodyRegular>
+                </Info>
+              </Infos>
+            </Line>
+            <Line>
+              <Label>
+                <SmallHeadline>Date</SmallHeadline>
+              </Label>
+              <Infos>
+                <Info style={{ marginRight: "34px" }}>
+                  <BodyRegular>
+                    {openedBooking?.serviceTime?.toLocaleString({
+                      weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                    })}
+                  </BodyRegular>
+                </Info>
+                <Info style={{ marginRight: "8px", padding: "18px 21px" }}>
+                  <BodyRegular>
+                    {openedBooking?.serviceTime?.start?.hour! < 10 && 0}
+                    {openedBooking?.serviceTime?.start!.hour}
+                  </BodyRegular>
+                </Info>
+                <BackgroundInfo>&nbsp;h&nbsp;</BackgroundInfo>
+                <Info style={{ padding: "18px 21px" }}>
+                  <BodyRegular>
+                    {openedBooking?.serviceTime?.start?.minute! < 10 && 0}
+                    {openedBooking?.serviceTime?.start!.minute}
+                  </BodyRegular>
+                </Info>
+                <BackgroundInfo>&nbsp;à&nbsp;</BackgroundInfo>
+                <BlackBackgroundInfo>
+                  &nbsp;{openedBooking?.serviceTime?.end?.hour! < 10 && 0}
+                  {openedBooking?.serviceTime?.end!.hour}h
+                  {openedBooking?.serviceTime?.end?.minute! < 10 && 0}
+                  {openedBooking?.serviceTime?.end!.minute}&nbsp;
+                </BlackBackgroundInfo>
+                <BackgroundInfo>
+                  durée:&nbsp;
+                  <BlackBackgroundInfo>
+                    {toHours(openedBooking?.serviceTime?.length("minutes")!)}
+                  </BlackBackgroundInfo>
+                </BackgroundInfo>
+              </Infos>
+            </Line>
+            <Line>
+              <Label>
+                <SmallHeadline>Prestations</SmallHeadline>
+              </Label>
+              <ServicesListWrapper>{servicesList}</ServicesListWrapper>
+            </Line>
+            <SeparatorMedium style={{ margin: "20px 0" }} />
+            <Line style={{ justifyContent: "space-between" }}>
+              <Links>
+                <Link style={{ marginRight: "50px" }}>Venue</Link>
+                <Link style={{ marginRight: "50px" }}>Pas venue</Link>
+                <Link style={{ marginRight: "50px" }}>Supprimer</Link>
+              </Links>
+              <SMS>
+                <CheckboxChecked />
+                &nbsp;SMS de rappel
+              </SMS>
+              <ButtonsWrapper>
+                <SecondaryButton
+                  style={{ marginRight: "40px" }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  Retour
+                </SecondaryButton>
+                <PrimaryButton>Total: {openedBooking?.total}€</PrimaryButton>
+              </ButtonsWrapper>
+            </Line>
+          </CardModal>
+        </StyledContent>
+      </Portal>
+    </Root>
   );
 }
