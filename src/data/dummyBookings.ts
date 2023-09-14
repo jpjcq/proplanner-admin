@@ -34,9 +34,9 @@ const dummyBookings: Booking[] = [
       DateTime.fromObject({ hour: 16 })
     ),
     customer: {
-      name: "Bonin Laura",
+      name: "Dupont Laura",
       tel: "06 99 99 99 99",
-      mail: "bonin.laura@gmail.com",
+      mail: "Dupont.laura@gmail.com",
     },
     services: [
       {
@@ -63,9 +63,9 @@ const dummyBookings: Booking[] = [
         .set({ hour: 11, minute: 0, second: 0, millisecond: 0 })
     ),
     customer: {
-      name: "Nitrova Mikaela",
+      name: "Lasalle Mikaela",
       tel: "06 88 88 88 88",
-      mail: "nytrova.mikaela@gmail.com",
+      mail: "lasalle.mikaela@gmail.com",
     },
     services: [
       {
@@ -151,7 +151,7 @@ const dummyBookings: Booking[] = [
       },
     ],
     total: 1,
-    note: "Attention super connasse!",
+    note: "Attention super radine!",
   },
   {
     _id: 70986554654589,
@@ -179,7 +179,7 @@ const dummyBookings: Booking[] = [
       },
     ],
     total: 1,
-    note: "Attention connasse!",
+    note: "Attention radine!",
   },
 ];
 
