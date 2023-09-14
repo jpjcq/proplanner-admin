@@ -2,14 +2,14 @@ import { Customer } from "../types/customer";
 
 const dummyCustomers: Customer[] = [
   {
-    name: "Nytrova Mikaela",
+    name: "Lasalle Mikaela",
     tel: "06 76 76 76 76",
-    mail: "nytrova.mikaela@gmail.com",
+    mail: "lasalle.mikaela@gmail.com",
   },
   {
-    name: "Bonin Laura",
+    name: "Dupont Laura",
     tel: "06 76 76 65 43",
-    mail: "bonin.laura@gmail.com",
+    mail: "dupont.laura@gmail.com",
   },
   {
     name: "Dupont Georgette",
